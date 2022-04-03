@@ -17,7 +17,7 @@
 
 6. 实现了[NFM](https://arxiv.org/abs/1708.05027#:~:text=NFM%20seamlessly%20combines%20the%20linearity,of%20NFM%20without%20hidden%20layers.)，线性部分sparese和dense直接全连接激活后dropout输出，nfm层输入sparse embed为k维并concat为(bs, field, k)后通过bi-interaction生成(bs, k)的输入，再concat dense层的输入变为(bs, k+dense_dim)后接入一个dnn层输出。之后线性层+dnn层共同输出logit。
 
-7. 实现了AutoInt，线性部分sparese和dense直接全连接激活后dropout输出，autoint层输入sparse embed为k维并concat为(bs, field, k)进行自注意力机制运算，最终输出(bs, field, k)；dnn层通过sparse embed生成的(bs, field, k)转化为(bs, field x k)后再concat dense层(bs, dense_dim)变为(bs, field x k + dense_dim)作为dnn层的输入，之后通过隐层得到(bs, hidden)输出。之后根据autoint层输出的(bs, field, k)转为(bs, field x k)，再concat dnn输出的(bs, hidden)为(bs, field x k + hidden)，通过一个全连接层后得到(bs, 1)输出，再加上线性部分输出logit。
+7. 实现了[AutoInt](https://arxiv.org/abs/1810.11921)，线性部分sparese和dense直接全连接激活后dropout输出，autoint层输入sparse embed为k维并concat为(bs, field, k)进行自注意力机制运算，最终输出(bs, field, k)；dnn层通过sparse embed生成的(bs, field, k)转化为(bs, field x k)后再concat dense层(bs, dense_dim)变为(bs, field x k + dense_dim)作为dnn层的输入，之后通过隐层得到(bs, hidden)输出。之后根据autoint层输出的(bs, field, k)转为(bs, field x k)，再concat dnn输出的(bs, hidden)为(bs, field x k + hidden)，通过一个全连接层后得到(bs, 1)输出，再加上线性部分输出logit。
 
    ps：常见的对连续值特征的处理方式有三种：
 
